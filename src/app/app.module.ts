@@ -14,12 +14,16 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VocabularyListComponent,
     NavbarComponent,
+    HomeComponent,
     
   ],
   imports: [
@@ -31,7 +35,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatTableModule,
     MatMenuModule,
     MatPaginatorModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [
     provideClientHydration(),
