@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VocabularyListComponent } from './vocabulary-list/vocabulary-list.component';
 import { HomeComponent } from './home/home.component';
+import { EditWordComponent } from './edit-word/edit-word.component';
+import { AddWordComponent } from './add-word/add-word.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' }, // เรียกใช้หน้า Home เมื่อเข้าระบบครั้งแรก
-  { path: 'home', component: HomeComponent }, // เส้นทางสำหรับหน้า Home
-  { path: 'vocabulary-list', component: VocabularyListComponent }
+  
+  { path: '', component: HomeComponent }, // เส้นทางสำหรับหน้า Home
+  { path: 'vocabulary-list', component: VocabularyListComponent },
+  { path: 'edit-word', component:EditWordComponent},
+  { path: 'add-word', component:AddWordComponent}
+
 ];
 
 @NgModule({

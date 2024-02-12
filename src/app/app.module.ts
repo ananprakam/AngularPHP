@@ -18,12 +18,20 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { HomeComponent } from './home/home.component';
 
+import { NgxSpinnerModule } from "ngx-spinner";
+import { EditWordComponent } from './edit-word/edit-word.component';
+import { DeleteWordComponent } from './delete-word/delete-word.component';
+import { AddWordComponent } from './add-word/add-word.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     VocabularyListComponent,
     NavbarComponent,
     HomeComponent,
+    EditWordComponent,
+    DeleteWordComponent,
+    AddWordComponent,
     
   ],
   imports: [
@@ -37,7 +45,8 @@ import { HomeComponent } from './home/home.component';
     MatPaginatorModule,
     MatFormFieldModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    NgxSpinnerModule
   ],
   providers: [
     provideClientHydration(),

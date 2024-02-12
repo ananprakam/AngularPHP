@@ -1,0 +1,29 @@
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <h1 clsas="mt-3">เพิ่มรายการอาหาร</h1>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+                    <div class="mt-2">
+                        <div class="mb-3">
+                            <label for="englishword" class="form-label">ชื่ออาหาร</label>
+                            <input type="text" id="englishword" class="form-control" name="englishword"
+                                [(ngModel)]="vocabulary.english_word">
+                        </div>
+                        <div class="mb-3">
+                            <label for="thaiword" class="form-label">ราคา</label>
+                            <input type="text" id="thaiword" class="form-control" name="thaiword"
+                                [(ngModel)]="vocabulary.thai_word">
+                        </div>
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                            <button class="btn btn-primary"><a href="/vocabulary-list">ย้อนกลับ</a></button>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -3,3 +3,14 @@ mat-toolbar {
   justify-content: space-between;
   align-items: center;
 }
+
+a {
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+a:hover {
+  text-decoration: underline;
+  color: black;
+  transition: all 0.3s ease-in-out;
+}

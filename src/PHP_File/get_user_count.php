@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // คำสั่ง SQL เพื่อดึงจำนวนผู้ใช้
-$sql = "SELECT COUNT(*) AS  vocabulary_count FROM vocabularydata";
+$sql = "SELECT COUNT(*) AS user_count FROM users";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
