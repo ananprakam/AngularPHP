@@ -19,7 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { HomeComponent } from './home/home.component';
 
 import { NgxSpinnerModule } from "ngx-spinner";
-import { EditWordComponent } from './edit-word/edit-word.component';
+import { EditVocabularyComponent } from './edit-word/edit-vocabulary.component';
 import { DeleteWordComponent } from './delete-word/delete-word.component';
 import { AddWordComponent } from './add-word/add-word.component';
 
@@ -29,7 +29,7 @@ import { AddWordComponent } from './add-word/add-word.component';
     VocabularyListComponent,
     NavbarComponent,
     HomeComponent,
-    EditWordComponent,
+    EditVocabularyComponent,
     DeleteWordComponent,
     AddWordComponent,
     

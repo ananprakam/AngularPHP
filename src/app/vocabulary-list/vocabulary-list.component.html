@@ -1,20 +1,20 @@
-
 <app-navbar></app-navbar>
 <div class="card shadow ">
   <div class="row">
     <div class="d-flex justify-content-center">
       <div class="col">
-        <input type="text" class="form-control mt-3" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="searchTerm">
+        <input type="text" class="form-control mt-3" placeholder="Search" aria-label="Search"
+          aria-describedby="basic-addon2" [(ngModel)]="searchTerm">
       </div>
       <div class="col text-end mt-3">
         <div>
           <a routerLink="/add-word" class="btn btn-success">Add New</a>
         </div>
       </div>
-      
+
     </div>
   </div>
-  
+
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -32,9 +32,18 @@
             <td>{{ vocabulary.id }}</td>
             <td>{{ vocabulary.english_word }}</td>
             <td>{{ vocabulary.thai_word }}</td>
-            <td><button class="btn btn-primary edit-btn">Edit</button></td>
-            <td><button class="btn btn-danger delete-btn" (click)="deletes(Id)">Delete</button></td>
-
+            <td>
+              <form action="/edit-word" method="post">
+                  <!-- ข้อมูลที่ต้องการส่งไปด้วย -->
+                  <input type="hidden" name="english_word" value="{{ vocabulary.english_word }}">
+                  <input type="hidden" name="thai_word" value="{{ vocabulary.thai_word }}">
+                  <!-- ปุ่ม Edit -->
+                  <button type="submit" class="btn btn-warning edit-btn">Edit</button>
+              </form>
+          </td>
+          
+          
+            <td><button type="button" (click)="delete(vocabulary.id!)" class="btn btn-danger">Delete</button></td>
           </tr>
         </tbody>
       </table>

@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vocabulary-list',
@@ -16,15 +17,23 @@ export class VocabularyListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'english_Word', 'thai_Word'];
   dataSource!: MatTableDataSource<Vocabulary>;
   searchTerm: string = '';
-  Id? : number;
-  
+  id?: number;
+
+  error = '';
+  success = '';
+
+  resetAlerts() {
+    this.error = '';
+  }
 
   post: any;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
-  constructor(private vocabularyService: VocabularyService, private spinerService: NgxSpinnerService) {
+  constructor(private vocabularyService: VocabularyService
+    , private spinerService: NgxSpinnerService
+    , private router: Router) {
     this.vocabularyService.getAllVocabularies().subscribe((data => {
       this.post = data;
       this.dataSource = new MatTableDataSource(this.post);
@@ -49,10 +58,14 @@ export class VocabularyListComponent implements OnInit {
       return this.vocabularies;
     }
     return this.vocabularies.filter((vocabulary) => {
-      return vocabulary.english_word.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        vocabulary.thai_word.toLowerCase().includes(searchTerm.toLowerCase());
+      // Check if vocabulary and vocabulary.english_word are defined
+      if (vocabulary && vocabulary.english_word) {
+        return vocabulary.english_word.toLowerCase().includes(searchTerm.toLowerCase());
+      }
+      return false;
     });
   }
+
 
   getAllVocabularies(): void {
     this.vocabularyService.getAllVocabularies().subscribe(
@@ -70,32 +83,36 @@ export class VocabularyListComponent implements OnInit {
     );
   }
 
-  // deleteVocabulary(id: number) {
+
+  
+  // deletes(id: number) {
+  //   this.vocabularyService.deleteData(id).subscribe((vocabularies: Vocabulary) => {
+  //     console.log("Vocabulary deleted, ", vocabularies);
+  //   });
+  // }
+  delete(id: number) {
+    this.vocabularyService.deleteData(id).subscribe(res => {
+      this.vocabularies = this.vocabularies.filter(item => item.id !== id);
+      console.log('Customer deleted successfully!');
+    })
+  }
+
+  // deletes(Id: number){
   //   debugger
-  //   if (confirm('Are you sure you want to delete this vocabulary?')) {
-  //     this.vocabularyService.deleteData(id).subscribe(response => {
-  //       console.log('Vocabulary deleted successfully');
-  //       // ทำอย่างอื่นๆ ที่คุณต้องการหลังจากการลบข้อมูล
-  //     }, error => {
-  //       console.error('Error deleting vocabulary:', error);
-  //     });
-  //   }
+  //   console.log('Id',Id);
+  //   this.resetAlerts();
+  //   this.vocabularyService.deleteData(Id).subscribe(
+  //     (res) => {
+  //       this.vocabularies = this.vocabularies.filter(function (vocabulary) {
+  //         return vocabulary['id'] && +vocabulary['id'] !== +Id;
+  //       });
+
+  //       this.success = 'Deleted successfully';
+  //     },
+  //     (err) => (this.error = err)
+  //   );
   // }
 
 
-  deletes(Id?: number){
-    debugger
-    if (Id !== undefined) {
-      this.vocabularyService.deleteData(Id).subscribe(
-        () => {
-          console.log('Vocabulary deleted successfully');
-          // ทำอย่างอื่นๆ ที่คุณต้องการหลังจากการลบข้อมูล
-        },
-        error => {
-          console.error('Error deleting vocabulary:', error);
-        }
-      );
-    }
-  }
-  
+
 }
