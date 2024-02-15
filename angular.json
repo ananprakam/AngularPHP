@@ -107,7 +107,9 @@
               "src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modeles/sweetalert2/dist/sweetalert2.min.css"
             ],
             "scripts": []
           }

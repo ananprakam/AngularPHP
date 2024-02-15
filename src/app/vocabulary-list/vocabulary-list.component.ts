@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vocabulary-list',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
 export class VocabularyListComponent implements OnInit {
   vocabularies: Vocabulary[] = [];
   displayedColumns: string[] = ['id', 'english_Word', 'thai_Word'];
-  dataSource!: MatTableDataSource<Vocabulary>;
+  dataSource!: any;
   searchTerm: string = '';
   id?: number;
 
@@ -33,10 +34,11 @@ export class VocabularyListComponent implements OnInit {
 
   constructor(private vocabularyService: VocabularyService
     , private spinerService: NgxSpinnerService
-    , private router: Router) {
+    , private router: Router,
+    private toastr: ToastrService) {
     this.vocabularyService.getAllVocabularies().subscribe((data => {
       this.post = data;
-      this.dataSource = new MatTableDataSource(this.post);
+      this.dataSource = new MatTableDataSource<Vocabulary>(this.post);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }))
@@ -52,6 +54,7 @@ export class VocabularyListComponent implements OnInit {
 
     this.getAllVocabularies();
   }
+  
   //Search DATA
   filterData(searchTerm: string) {
     if (!searchTerm) {
@@ -83,36 +86,29 @@ export class VocabularyListComponent implements OnInit {
     );
   }
 
+  onDelete(id: number | undefined): void {
+    this.spinerService.show();
 
-  
-  // deletes(id: number) {
-  //   this.vocabularyService.deleteData(id).subscribe((vocabularies: Vocabulary) => {
-  //     console.log("Vocabulary deleted, ", vocabularies);
-  //   });
-  // }
-  delete(id: number) {
-    this.vocabularyService.deleteData(id).subscribe(res => {
-      this.vocabularies = this.vocabularies.filter(item => item.id !== id);
-      console.log('Customer deleted successfully!');
-    })
+   
+    if (id !== undefined) { // ตรวจสอบให้แน่ใจว่าค่าไม่ใช่ undefined
+      if (confirm('Are you sure you want to delete this vocabulary?')) {
+        this.vocabularyService.deleteData(id).subscribe({
+          next: () => {
+            // ลบคำศัพท์ออกจากคอลเล็กชันหลังจากลบข้อมูลในเซิร์ฟเวอร์เรียบร้อยแล้ว
+            this.vocabularies = this.vocabularies.filter((vocabulary) => vocabulary.id !== id);
+            this.toastr.success('Vocabulary deleted successfully');
+            setTimeout(() => {
+              this.spinerService.hide();
+            }, 1000);
+            this.router.navigate(['/vocabulary-list']);
+          },
+          error: (error) => {
+            console.error('Error deleting vocabulary:', error);
+            // Handle error, e.g., display error message
+          }
+        });
+      }
+    }
   }
-
-  // deletes(Id: number){
-  //   debugger
-  //   console.log('Id',Id);
-  //   this.resetAlerts();
-  //   this.vocabularyService.deleteData(Id).subscribe(
-  //     (res) => {
-  //       this.vocabularies = this.vocabularies.filter(function (vocabulary) {
-  //         return vocabulary['id'] && +vocabulary['id'] !== +Id;
-  //       });
-
-  //       this.success = 'Deleted successfully';
-  //     },
-  //     (err) => (this.error = err)
-  //   );
-  // }
-
-
-
+  
 }

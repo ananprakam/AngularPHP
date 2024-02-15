@@ -22,6 +22,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { EditVocabularyComponent } from './edit-word/edit-vocabulary.component';
 import { DeleteWordComponent } from './delete-word/delete-word.component';
 import { AddWordComponent } from './add-word/add-word.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +36,7 @@ import { AddWordComponent } from './add-word/add-word.component';
     EditVocabularyComponent,
     DeleteWordComponent,
     AddWordComponent,
+    UsersListComponent,
     
   ],
   imports: [
@@ -46,7 +51,13 @@ import { AddWordComponent } from './add-word/add-word.component';
     MatFormFieldModule,
     MatToolbarModule,
     MatIconModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FontAwesomeModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
+    
   ],
   providers: [
     provideClientHydration(),

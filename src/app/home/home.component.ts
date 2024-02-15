@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { faLayerGroup, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,10 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit{
 userCount: number = 0;
 vocabularyCount  : number = 0;
+
+faUser=faUser;
+faLayerGroup=faLayerGroup;
+
 constructor(private http: HttpClient) { }
 
   ngOnInit(): void {

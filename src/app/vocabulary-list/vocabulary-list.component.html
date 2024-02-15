@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="card shadow ">
+<div class="card shadow">
   <div class="row">
     <div class="d-flex justify-content-center">
       <div class="col">
@@ -23,28 +23,22 @@
             <th>ID</th>
             <th>english_word</th>
             <th>thai_word</th>
-            <th>Edit Name</th>
+            <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody class="text-center">
-          <tr *ngFor="let vocabulary of filterData(searchTerm) ">
+          <!-- เราจะใช้ *ngFor ในการวน loop ข้อมูลของคำศัพท์ทั้งหมด -->
+          <tr *ngFor="let vocabulary of filterData(searchTerm)">
             <td>{{ vocabulary.id }}</td>
             <td>{{ vocabulary.english_word }}</td>
             <td>{{ vocabulary.thai_word }}</td>
-            <td>
-              <form action="/edit-word" method="post">
-                  <!-- ข้อมูลที่ต้องการส่งไปด้วย -->
-                  <input type="hidden" name="english_word" value="{{ vocabulary.english_word }}">
-                  <input type="hidden" name="thai_word" value="{{ vocabulary.thai_word }}">
-                  <!-- ปุ่ม Edit -->
-                  <button type="submit" class="btn btn-warning edit-btn">Edit</button>
-              </form>
-          </td>
-          
-          
-            <td><button type="button" (click)="delete(vocabulary.id!)" class="btn btn-danger">Delete</button></td>
+            <!-- ปรับปรุงลิงก์ไปยังหน้าแก้ไขเพื่อส่งพารามิเตอร์ ID ของคำศัพท์ -->
+            <td><a [routerLink]="['/edit-word/', vocabulary.id]" class="btn btn-primary">Edit</a></td>
+            <td><button type="button"  class="btn btn-danger" (click)="onDelete(vocabulary.id)">Delete</button></td>
+
           </tr>
+
         </tbody>
       </table>
     </div>

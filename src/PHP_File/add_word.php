@@ -1,46 +1,24 @@
 <?php
-// ตรวจสอบว่ามีการส่งข้อมูลผ่านเมธอด POST หรือไม่
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // เชื่อมต่อกับฐานข้อมูล MySQL
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "admin_pages";
+    // Include the connection file
+    require "connection.php";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // ตรวจสอบการเชื่อมต่อ
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // รับข้อมูลที่ส่งมาจาก Angular
+    // Decode the JSON data from the request body
     $data = json_decode(file_get_contents("php://input"));
 
-    // ตรวจสอบว่า $data ไม่เป็น null และมี properties ที่ต้องการ
-    if ($data !== null && isset($data->english_word) && isset($data->thai_word)) {
-        // หากข้อมูลถูกต้อง ให้ escape ค่าที่ได้รับเพื่อป้องกัน SQL Injection
-        $english_word = $conn->real_escape_string($data->english_word);
-        $thai_word = $conn->real_escape_string($data->thai_word);
+    // Extract data fields
+    $username   = $data->username;
+    $age    = $data->age;
 
-        // สร้างคำสั่ง SQL เพื่อบันทึกข้อมูล
-        $sql = "INSERT INTO vocabularydata (english_word, thai_word) VALUES ('$english_word', '$thai_word')";
+    // Prepare the SQL query using the new table name
+    $query = "INSERT INTO users (username, email) VALUES ('$username', $email')";
 
-        // ทำคำสั่ง SQL
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
+    // Execute the query
+    if(mysqli_query($con, $query)) {
+        $response["msg"] = "User added successfully";
     } else {
-        // หากข้อมูลไม่ถูกต้อง ให้ส่งข้อความแจ้งเตือนกลับไปยัง Angular
-        echo "Error: English word and/or Thai word not provided or data is null";
+        $response["msg"] = "Add user response from server failed";
     }
 
-    // ปิดการเชื่อมต่อฐานข้อมูล
-    $conn->close();
-} else {
-    // หากไม่มีการส่งข้อมูลผ่านเมธอด POST ให้ส่งข้อความแจ้งเตือนกลับไปยัง Angular
-    echo "Error: Invalid request method";
-}
+    // Send JSON response
+    echo json_encode($response);
 ?>

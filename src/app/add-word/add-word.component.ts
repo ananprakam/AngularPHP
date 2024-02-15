@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { VocabularyService } from '../vocabulary.service';
 import { Vocabulary } from '../vocabulary.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-word',
@@ -14,14 +15,16 @@ export class AddWordComponent {
 
   constructor(
     private vocabularyService: VocabularyService,
-    private router: Router
+    private router: Router,
+    private toster: ToastrService
   ) {}
 
   onFormSubmit() {
     console.log('Form submitted. Vocabulary:', this.vocabulary);
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
-        console.log('Data added successfully:', response);
+        this.toster.success('Data added successfully');
+        this.router.navigate(['/vocabulary-list']);
       },
       error: (error) => {
         console.error('Error:', error);
