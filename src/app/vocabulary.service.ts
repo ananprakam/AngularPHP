@@ -56,10 +56,11 @@ export class VocabularyService {
     return throwError(errorMessage);
   }
 
-  addData(data: Vocabulary): Observable<any> {
-    console.log('adddaaaaaata', data);
-    return this.http.post(this.baseUrl + `add_word.php`, data);
+  addData(data: Vocabulary): Observable<{msg:string,msgg:string}> {
+   console.log('data:', data);
+    return this.http.post<{msg:string,msgg:string}>(this.baseUrl + `add_word.php`, data); 
   }
+
 
   getVocabularyById(id: number): Observable<Vocabulary> {
     const url = `${this.baseUrl}update_word.php?id=${id}`;

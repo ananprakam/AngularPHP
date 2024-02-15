@@ -20,7 +20,6 @@ import { HomeComponent } from './home/home.component';
 
 import { NgxSpinnerModule } from "ngx-spinner";
 import { EditVocabularyComponent } from './edit-word/edit-vocabulary.component';
-import { DeleteWordComponent } from './delete-word/delete-word.component';
 import { AddWordComponent } from './add-word/add-word.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -34,7 +33,6 @@ import { ToastrModule } from 'ngx-toastr';
     NavbarComponent,
     HomeComponent,
     EditVocabularyComponent,
-    DeleteWordComponent,
     AddWordComponent,
     UsersListComponent,
     

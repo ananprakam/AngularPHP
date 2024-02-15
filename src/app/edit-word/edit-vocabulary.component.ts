@@ -4,6 +4,7 @@ import { VocabularyService } from '../vocabulary.service';
 import { Vocabulary } from '../vocabulary.model';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-vocabulary',
@@ -51,27 +52,26 @@ export class EditVocabularyComponent implements OnInit {
     if (this.vocabulary) {
       this.vocabularyService.saveVocabulary(this.vocabulary).subscribe({
         next: (response) => {
-          this.toster.success('Data added successfully');
-          this.router.navigate(['/vocabulary-list']);
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Data edited successfully',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/vocabulary-list']);
+            }
+          });
         },
         error: (error: any) => {
           console.error('Error saving vocabulary:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred while saving data.',
+          });
         }
       });
     }
   }
-  updateVocabulary(): void {
-    if (this.vocabulary) {
-      this.vocabularyService.updateVocabulary(this.vocabulary).subscribe({
-        next: (response) => {
-          console.log('Update successful:', response);
-          // Handle successful update, e.g., display success message
-        },
-        error: (error: any) => {
-          console.error('Error updating vocabulary:', error);
-          // Handle error, e.g., display error message
-        }
-      });
-    }
-  }
+  
 }

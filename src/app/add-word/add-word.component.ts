@@ -4,6 +4,7 @@ import { VocabularyService } from '../vocabulary.service';
 import { Vocabulary } from '../vocabulary.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-word',
@@ -20,16 +21,55 @@ export class AddWordComponent {
   ) {}
 
   onFormSubmit() {
-    console.log('Form submitted. Vocabulary:', this.vocabulary);
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
-        this.toster.success('Data added successfully');
-        this.router.navigate(['/vocabulary-list']);
+        if (response.msgg === "English word already exists") {
+          // Display an error message indicating that the English word already exists
+          Swal.fire({
+            icon: 'error',
+            text: 'มีคำภาษาอังกฤษอยู่แล้ว',
+          });
+        } else {
+          // Display a success message and navigate to the vocabulary list
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: response.msg,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/vocabulary-list']);
+            }
+          });
+        }
       },
       error: (error) => {
+        // Handle other errors
         console.error('Error:', error);
+        // Optionally, you can display a generic error message to the user
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'An error occurred while processing your request.',
+        });
       },
     });
+  }
+  
+
+
+  
+
+
+
+
+
+
+
+
+  goBack(): void {
+    
+      this.router.navigate(['/vocabulary-list']);
+    
   }
   
 }

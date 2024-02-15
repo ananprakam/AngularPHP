@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { faLayerGroup, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faLayerGroup, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +13,7 @@ vocabularyCount  : number = 0;
 
 faUser=faUser;
 faLayerGroup=faLayerGroup;
+faBook=faBook;
 
 constructor(private http: HttpClient) { }
 

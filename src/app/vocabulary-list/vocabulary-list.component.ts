@@ -7,6 +7,8 @@ import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-vocabulary-list',
@@ -87,27 +89,39 @@ export class VocabularyListComponent implements OnInit {
   }
 
   onDelete(id: number | undefined): void {
-    this.spinerService.show();
-
-   
-    if (id !== undefined) { // ตรวจสอบให้แน่ใจว่าค่าไม่ใช่ undefined
-      if (confirm('Are you sure you want to delete this vocabulary?')) {
-        this.vocabularyService.deleteData(id).subscribe({
-          next: () => {
-            // ลบคำศัพท์ออกจากคอลเล็กชันหลังจากลบข้อมูลในเซิร์ฟเวอร์เรียบร้อยแล้ว
-            this.vocabularies = this.vocabularies.filter((vocabulary) => vocabulary.id !== id);
-            this.toastr.success('Vocabulary deleted successfully');
-            setTimeout(() => {
-              this.spinerService.hide();
-            }, 1000);
-            this.router.navigate(['/vocabulary-list']);
-          },
-          error: (error) => {
-            console.error('Error deleting vocabulary:', error);
-            // Handle error, e.g., display error message
-          }
-        });
-      }
+    
+  
+    if (id !== undefined) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.vocabularyService.deleteData(id).subscribe({
+            next: () => {
+              this.vocabularies = this.vocabularies.filter((vocabulary) => vocabulary.id !== id);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+              });
+              
+              this.router.navigate(['/vocabulary-list']);
+            },
+            error: (error) => {
+              console.error('Error deleting vocabulary:', error);
+              // Handle error, e.g., display error message
+            }
+          });
+        } else {
+          this.spinerService.hide();
+        }
+      });
     }
   }
   

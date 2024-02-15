@@ -111,7 +111,9 @@
               "node_modules/ngx-toastr/toastr.css",
               "node_modeles/sweetalert2/dist/sweetalert2.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/sweetalert2/dist/sweetalert2.all.min.js"
+            ]
           }
         }
       }
