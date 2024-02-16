@@ -1,33 +1,30 @@
 <app-navbar></app-navbar>
 <div class="card">
-  <div class="card shadow">
-    <div class="row">
-      <div class="d-flex justify-content-center">
-        <div class="col">
-          <input type="text" class="form-control mt-3" placeholder="Search" aria-label="Search"
-            aria-describedby="basic-addon2" [(ngModel)]="searchTerm">
-        </div>
-        <div class="col text-end mt-3">
-          <div>
-            <a routerLink="/add-word" class="btn btn-success">Add New</a>
-          </div>
-        </div>
+  <div class="card ">
 
+    <div class="d-flex justify-content-center align-items-center mt-5 ml-8">
+      <div class="ms-5 me-3">
+          <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
       </div>
-    </div>
+      <div>
+          <a routerLink="/add-word" class="btn btn-success">Add New</a>
+      </div>
+  </div>
+  
 
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <div class="table">
+        <table class="table table-bordered" id="dataTable"  >
           <thead>
-            <tr class="text-center">
-              <th>ID</th>
-              <th>english_word</th>
-              <th>thai_word</th>
-              <th>Edit</th>
-              <th>Delete</th>
+            <tr class="text-center" style="font-size: 20px;">
+                <th style="width: auto;">ID</th>
+                <th style="width: auto;">english_word</th>
+                <th style="width: auto;">thai_word</th>
+                <th style="width: auto;">Edit</th>
+                <th style="width: auto;">Delete</th>
             </tr>
-          </thead>
+        </thead>
+        
           <tbody class="text-center">
             <!-- เราจะใช้ *ngFor ในการวน loop ข้อมูลของคำศัพท์ทั้งหมด -->
             <tr *ngFor="let vocabulary of filterData(searchTerm)">

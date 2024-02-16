@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+<!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
     <div class="container-fluid ">
         <a class="navbar-brand" href="">Admin-Dashboard</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
@@ -16,6 +16,30 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/users-list">Users</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg  p-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="font-weight:300 ;font-size: 50px; " href="">Admin-Dashboard</a>
+        <button class="navbar-toggler no-hover" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 active"  aria-current="page" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" style="color: black; font-size: 20px;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" routerLink="/vocabulary-list"  routerLinkActive="active"  style="color: black;font-size: 20px; ">Vocabulary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" routerLink="/users-list" routerLinkActive="active" style="color: black;font-size: 20px;">Users</a>
                 </li>
             </ul>
         </div>

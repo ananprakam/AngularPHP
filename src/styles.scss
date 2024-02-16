@@ -2,12 +2,24 @@
 @import "bootstrap/scss/bootstrap";
 @import "ngx-toastr/toastr";
 @import url("https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
 html,
 body {
   height: 100%;
 }
-body {
+body,div {
   margin: 0;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+A{
+  font-weight: 100;
+}
+
+
+@font-face {
+  font-family: "VinaSans";
+  src: url('./assets/font/VinaSans-Regular.ttf') format('truetype');
 }
