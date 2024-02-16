@@ -1,9 +1,9 @@
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
-        <h1 clsas="mt-3">Add English-Thai Dictionary</h1>
+        <h1 class="mt-3">Add English-Thai Dictionary</h1>
         <div class="card shadow-sm">
             <div class="card-body">
-                <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+                <form (ngSubmit)="onFormSubmit()">
                     <div class="mt-2">
                         <div class="mb-3">
                             <label for="english_word" class="form-label">English Word</label>
@@ -14,14 +14,12 @@
                             <input type="text" id="thai_word" class="form-control" name="thai_word" [(ngModel)]="vocabulary.thai_word">
                         </div>
                         <div class="mt-3 d-flex justify-content-between align-items-center">
-                            <button type="submit" class="btn btn-primary">บันทึก</button>
-                            <button class="btn btn-primary" (click)="goBack()">ย้อนกลับ</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a class="btn btn-primary" [routerLink]="['/vocabulary-list']">Back</a>
                         </div>
-                        
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-

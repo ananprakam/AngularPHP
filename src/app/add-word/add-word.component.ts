@@ -33,7 +33,7 @@ export class AddWordComponent {
           // Display a success message and navigate to the vocabulary list
           Swal.fire({
             icon: 'success',
-            title: 'Success',
+            title: 'สำเร็จ',
             text: response.msg,
           }).then((result) => {
             if (result.isConfirmed) {

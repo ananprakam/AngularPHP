@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class VocabularyListComponent implements OnInit {
   vocabularies: Vocabulary[] = [];
-  displayedColumns: string[] = ['id', 'english_Word', 'thai_Word'];
+  displayedColumns: string[] = ['id', 'english_Word', 'thai_Word','edit', 'delete'];
   dataSource!: any;
   searchTerm: string = '';
   id?: number;
@@ -48,15 +48,8 @@ export class VocabularyListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.spinerService.show();
-
-    setTimeout(() => {
-      this.spinerService.hide();
-    }, 1000);
-
     this.getAllVocabularies();
-  }
-  
+}
   //Search DATA
   filterData(searchTerm: string) {
     if (!searchTerm) {
@@ -73,20 +66,24 @@ export class VocabularyListComponent implements OnInit {
 
 
   getAllVocabularies(): void {
+    this.spinerService.show(); // แสดง spinner เมื่อกำลังโหลดข้อมูล
     this.vocabularyService.getAllVocabularies().subscribe(
-      {
-        next: (data: Vocabulary[]) => {
-          this.vocabularies = data;
-          this.dataSource = new MatTableDataSource<Vocabulary>(data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        },
-        error: (error: any) => {
-          console.log(error);
+        {
+            next: (data: Vocabulary[]) => {
+                this.vocabularies = data;
+                this.dataSource = new MatTableDataSource<Vocabulary>(data);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            },
+            error: (error: any) => {
+                console.log(error);
+            },
+            complete: () => {
+                this.spinerService.hide(); // ซ่อน spinner เมื่อข้อมูลถูกโหลดเสร็จสมบูรณ์
+            }
         }
-      }
     );
-  }
+}
 
   onDelete(id: number | undefined): void {
     
