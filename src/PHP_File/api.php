@@ -1,4 +1,10 @@
 <?php
+// กำหนด Header เพื่ออนุญาตการเข้าถึงทางส่วนตัวจากโดเมนอื่น
+header("Access-Control-Allow-Origin: *");
+// ระบุว่าเซิร์ฟเวอร์อนุญาตการใช้งานวิธีการต่างๆ เช่น GET, POST, PUT, DELETE
+header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
+// ระบุ Header ที่อนุญาตให้ส่งมากับคำขอ เช่น Origin, X-Requested-With, Content-Type, Accept
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 // ตัวแปรสำหรับการเชื่อมต่อฐานข้อมูล
 $servername = "localhost";
 $username = "root";
