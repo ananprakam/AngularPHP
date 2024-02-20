@@ -9,18 +9,32 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-vocabulary-list',
   templateUrl: './vocabulary-list.component.html',
-  styleUrls: ['./vocabulary-list.component.scss']
+  styleUrls: ['./vocabulary-list.component.scss'],
 })
 export class VocabularyListComponent implements OnInit {
   vocabularies: Vocabulary[] = [];
-  displayedColumns: string[] = ['id', 'english_Word', 'thai_Word','edit', 'delete'];
+  displayedColumns: string[] = [
+    'id',
+    'english_Word',
+    'thai_Word',
+    'edit',
+    'delete',
+  ];
   dataSource!: any;
   searchTerm: string = '';
   id?: number;
+
+  // Variables for pagination
+  totalItems!: number;
+  currentPage: number = 1;
+  itemsPerPage: number = 10; // You can adjust this value
+  startIndex!: number;
+  endIndex!: number;
+
+  data: any[] = [];
 
   error = '';
   success = '';
@@ -33,23 +47,46 @@ export class VocabularyListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
-  constructor(private vocabularyService: VocabularyService
-    , private spinerService: NgxSpinnerService
-    , private router: Router,
-    private toastr: ToastrService) {
-    this.vocabularyService.getAllVocabularies().subscribe((data => {
+  constructor(
+    private vocabularyService: VocabularyService,
+    private spinerService: NgxSpinnerService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
+    this.vocabularyService.getAllVocabularies().subscribe((data) => {
       this.post = data;
       this.dataSource = new MatTableDataSource<Vocabulary>(this.post);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }))
+    });
   }
-
 
   ngOnInit(): void {
     this.getAllVocabularies();
-}
+    this.getData();
+  }
+
+  getData() {
+    this.vocabularyService.getAllVocabularies().subscribe((response: any) => {
+      this.vocabularies = response;
+      this.totalItems = this.vocabularies.length;
+      this.calculateIndices();
+    });
+  }
+  
+  calculateIndices() {
+    this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    this.endIndex = Math.min(this.startIndex + this.itemsPerPage - 1, this.totalItems - 1);
+  }
+  
+  
+
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex + 1;
+    this.getData(); // อัพเดตข้อมูลเมื่อมีการเปลี่ยนหน้า
+  }
+  
+  
   //Search DATA
   filterData(searchTerm: string) {
     if (!searchTerm) {
@@ -58,62 +95,61 @@ export class VocabularyListComponent implements OnInit {
     return this.vocabularies.filter((vocabulary) => {
       // Check if vocabulary and vocabulary.english_word are defined
       if (vocabulary && vocabulary.english_word) {
-        return vocabulary.english_word.toLowerCase().includes(searchTerm.toLowerCase());
+        return vocabulary.english_word
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
       }
       return false;
     });
   }
 
-
   getAllVocabularies(): void {
     this.spinerService.show(); // แสดง spinner เมื่อกำลังโหลดข้อมูล
-    this.vocabularyService.getAllVocabularies().subscribe(
-        {
-            next: (data: Vocabulary[]) => {
-                this.vocabularies = data;
-                this.dataSource = new MatTableDataSource<Vocabulary>(data);
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.sort = this.sort;
-            },
-            error: (error: any) => {
-                console.log(error);
-            },
-            complete: () => {
-                this.spinerService.hide(); // ซ่อน spinner เมื่อข้อมูลถูกโหลดเสร็จสมบูรณ์
-            }
-        }
-    );
-}
+    this.vocabularyService.getAllVocabularies().subscribe({
+      next: (data: Vocabulary[]) => {
+        this.vocabularies = data;
+        this.dataSource = new MatTableDataSource<Vocabulary>(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.spinerService.hide(); // ซ่อน spinner เมื่อข้อมูลถูกโหลดเสร็จสมบูรณ์
+      },
+    });
+  }
 
   onDelete(id: number | undefined): void {
-    
-  
     if (id !== undefined) {
       Swal.fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: "You won't be able to revert this!",
-        icon: "warning",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
       }).then((result) => {
         if (result.isConfirmed) {
           this.vocabularyService.deleteData(id).subscribe({
             next: () => {
-              this.vocabularies = this.vocabularies.filter((vocabulary) => vocabulary.id !== id);
+              this.vocabularies = this.vocabularies.filter(
+                (vocabulary) => vocabulary.id !== id
+              );
               Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
+                title: 'Deleted!',
+                text: 'Your file has been deleted.',
+                icon: 'success',
               });
-              
+
               this.router.navigate(['/vocabulary-list']);
             },
             error: (error) => {
               console.error('Error deleting vocabulary:', error);
               // Handle error, e.g., display error message
-            }
+            },
           });
         } else {
           this.spinerService.hide();
@@ -121,5 +157,4 @@ export class VocabularyListComponent implements OnInit {
       });
     }
   }
-  
 }

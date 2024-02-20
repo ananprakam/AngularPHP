@@ -39,7 +39,7 @@ if ($result->num_rows > 0) {
 } else {
     // Prepare the SQL query to insert data into the database
     $query = "INSERT INTO vocabularydata (english_word, thai_word) VALUES ('$english_word', '$thai_word')";
-    
+
     // Execute the query
     if (mysqli_query($conn, $query)) {
         $response["msg"] = "เพิ่มคำศัพท์เรียบร้อยแล้ว";
@@ -50,7 +50,3 @@ if ($result->num_rows > 0) {
 
 // Send JSON response
 echo json_encode($response);
-
-
-
-?>
