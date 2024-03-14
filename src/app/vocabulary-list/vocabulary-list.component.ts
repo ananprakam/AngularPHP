@@ -30,7 +30,8 @@ export class VocabularyListComponent implements OnInit {
   // Variables for pagination
   totalItems!: number;
   currentPage: number = 1;
-  itemsPerPage: number = 10; // You can adjust this value
+  itemsPerPage: number = 10; // กำหนดจำนวนรายการต่อหน้าที่ต้องการให้แสดง
+
   startIndex!: number;
   endIndex!: number;
 
@@ -79,12 +80,11 @@ export class VocabularyListComponent implements OnInit {
     this.endIndex = Math.min(this.startIndex + this.itemsPerPage - 1, this.totalItems - 1);
   }
   
-  
-
   onPageChange(event: any) {
     this.currentPage = event.pageIndex + 1;
-    this.getData(); // อัพเดตข้อมูลเมื่อมีการเปลี่ยนหน้า
+    this.calculateIndices(); // Update indices directly without fetching data again
   }
+  
   
   
   //Search DATA

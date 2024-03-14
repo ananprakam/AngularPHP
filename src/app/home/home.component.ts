@@ -27,9 +27,7 @@ constructor(private http: HttpClient) { }
     this.http.get<any>('http://localhost/api/get_user_count.php').subscribe(
       responses => {
         this.userCount = responses.user_count;
-        console.log(this.userCount);
-        console.log(responses.user_count);
-        console.log(responses);
+        
       },
       error => {
         console.log('Error occurred:', error);
@@ -41,9 +39,7 @@ constructor(private http: HttpClient) { }
     this.http.get<any>('http://localhost/api/get_word_count.php').subscribe(
       responses => {
         this.vocabularyCount = responses.vocabulary_count;
-        console.log(this.vocabularyCount);
-        console.log(responses.vocabulary_count);
-        console.log(responses);
+        
       },
       error => {
         console.log('Error occurred:', error);
