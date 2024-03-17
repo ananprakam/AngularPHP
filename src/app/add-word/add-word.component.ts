@@ -21,6 +21,7 @@ export class AddWordComponent {
   ) {}
 
   onFormSubmit() {
+    debugger
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
         if (response.msgg === "English word already exists") {
@@ -55,17 +56,6 @@ export class AddWordComponent {
     });
   }
   
-
-
-  
-
-
-
-
-
-
-
-
   goBack(): void {
     
       this.router.navigate(['/vocabulary-list']);
