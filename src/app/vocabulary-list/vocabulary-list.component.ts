@@ -27,14 +27,6 @@ export class VocabularyListComponent implements OnInit {
   searchTerm: string = '';
   id?: number;
 
-  // Variables for pagination
-  totalItems!: number;
-  currentPage: number = 1;
-  itemsPerPage: number = 10; // กำหนดจำนวนรายการต่อหน้าที่ต้องการให้แสดง
-
-  startIndex!: number;
-  endIndex!: number;
-
   data: any[] = [];
 
   error = '';
@@ -43,8 +35,8 @@ export class VocabularyListComponent implements OnInit {
   resetAlerts() {
     this.error = '';
   }
-
   post: any;
+
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -70,22 +62,10 @@ export class VocabularyListComponent implements OnInit {
   getData() {
     this.vocabularyService.getAllVocabularies().subscribe((response: any) => {
       this.vocabularies = response;
-      this.totalItems = this.vocabularies.length;
-      this.calculateIndices();
     });
   }
   
-  calculateIndices() {
-    this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.endIndex = Math.min(this.startIndex + this.itemsPerPage - 1, this.totalItems - 1);
-  }
-  
-  onPageChange(event: any) {
-    this.currentPage = event.pageIndex + 1;
-    this.calculateIndices(); // Update indices directly without fetching data again
-  }
-  
-  
+ 
   
   //Search DATA
   filterData(searchTerm: string) {
