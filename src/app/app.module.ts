@@ -22,7 +22,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TestListComponent } from './test-list/test-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,6 @@ import { TestListComponent } from './test-list/test-list.component';
     EditVocabularyComponent,
     AddWordComponent,
     UsersListComponent,
-    TestListComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { EditVocabularyComponent } from './edit-word/edit-vocabulary.component';
 import { AddWordComponent } from './add-word/add-word.component';
 import { UsersListComponent } from './users-list/users-list.component';
-import { TestListComponent } from './test-list/test-list.component';
 
 const routes: Routes = [
   
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'edit-word/:id', component:EditVocabularyComponent},
   { path: 'add-word/:id', component:AddWordComponent},
   { path: 'users-list', component: UsersListComponent },
-  { path: 'test-list', component: TestListComponent },
 
 ];
 
