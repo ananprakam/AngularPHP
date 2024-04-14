@@ -54,8 +54,8 @@ export class EditVocabularyComponent implements OnInit {
         next: (response) => {
           Swal.fire({
             icon: 'success',
-            title: 'Success',
-            text: 'Data edited successfully',
+            title: 'เรียบร้อย',
+            text: 'แก้ไขข้อมูลเรียบร้อยแล้ว',
           }).then((result) => {
             if (result.isConfirmed) {
               this.router.navigate(['/vocabulary-list']);
@@ -63,11 +63,11 @@ export class EditVocabularyComponent implements OnInit {
           });
         },
         error: (error: any) => {
-          console.error('Error saving vocabulary:', error);
+          console.error('เกิดข้อผิดพลาดในการบันทึกคำศัพท์:', error);
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'An error occurred while saving data.',
+            text: 'เกิดข้อผิดพลาดขณะบันทึกข้อมูล',
           });
         }
       });

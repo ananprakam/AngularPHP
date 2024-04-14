@@ -67,22 +67,19 @@ export class UsersListComponent {
 
   deleteUser(userId: number | undefined) {
     if (userId !== undefined) {
-      if (!confirm('Are you sure you want to delete this user?')) {
-        return; // If the user cancels, do nothing
+      if (!confirm('คุณแน่ใจหรือไม่ว่าต้องการลบผู้ใช้รายนี้?')) {
+        return; 
       }
 
-      // Call the deleteUser method from the UserService
       this.vocabularyService.deleteUser(userId)
         .subscribe(response => {
-          console.log('User deleted successfully:', response);
-          // Handle success, e.g., show a success message or update UI
+          console.log('ลบผู้ใช้เรียบร้อยแล้ว: ', response);
+          
         }, error => {
-          console.error('Error deleting user:', error);
-          // Handle error, e.g., show an error message
+          console.error('เกิดข้อผิดพลาดในการลบผู้ใช้: ', error);
         });
     } else {
       console.error('User ID is undefined');
-      // Handle the case where userId is undefined, e.g., show an error message
     }
   }
   

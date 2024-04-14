@@ -21,10 +21,9 @@ export class AddWordComponent {
   ) {}
 
   onFormSubmit() {
-    debugger
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
-        if (response.msgg === "English word already exists") {
+        if (response.msgg === "มีคำภาษาอังกฤษอยู่แล้ว") {
           // Display an error message indicating that the English word already exists
           Swal.fire({
             icon: 'error',
@@ -50,7 +49,7 @@ export class AddWordComponent {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'An error occurred while processing your request.',
+          text: 'เกิดข้อผิดพลาดขณะประมวลผลคำขอของคุณ',
         });
       },
     });
