@@ -24,13 +24,13 @@ export class AddWordComponent {
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
         if (response.msgg === "มีคำภาษาอังกฤษอยู่แล้ว") {
-          // Display an error message indicating that the English word already exists
+          // แสดงข้อความข้อผิดพลาดที่ระบุว่ามีคำภาษาอังกฤษซ้ำ
           Swal.fire({
             icon: 'error',
             text: 'มีคำภาษาอังกฤษอยู่แล้ว',
           });
         } else {
-          // Display a success message and navigate to the vocabulary list
+          // แสดงข้อความสำเร็จและนำผู้ใช้ไปยังหน้ารายการคำศัพท์
           Swal.fire({
             icon: 'success',
             title: 'สำเร็จ',
@@ -43,9 +43,9 @@ export class AddWordComponent {
         }
       },
       error: (error) => {
-        // Handle other errors
+        // จัดการข้อผิดพลาดอื่นๆ
         console.error('Error:', error);
-        // Optionally, you can display a generic error message to the user
+        // ตัวเลือกที่จะแสดงข้อความข้อผิดพลาดทั่วไปแก่ผู้ใช้
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -54,6 +54,7 @@ export class AddWordComponent {
       },
     });
   }
+  
   
   goBack(): void {
     
