@@ -31,8 +31,9 @@ $thai_word    = $data->thai_word;
 $check_query = "SELECT * FROM vocabularydata WHERE english_word = '$english_word'";
 $result = $conn->query($check_query);
 
+// Check if the english_word already exists in the database
 if ($result->num_rows > 0) {
-    $response["msgg"] = "English word already exists";
+    $response["msg"] = "มีคำภาษาอังกฤษอยู่แล้ว";
     // Send JSON response
     echo json_encode($response);
     exit(); // สิ้นสุดการทำงานของสคริปต์เพื่อไม่ต้องดำเนินการต่อ
@@ -46,7 +47,10 @@ if ($result->num_rows > 0) {
     } else {
         $response["msg"] = "Add vocabulary response from server failed";
     }
+    // Send JSON response
+    echo json_encode($response);
 }
+
 
 // Send JSON response
 echo json_encode($response);

@@ -23,7 +23,7 @@ export class AddWordComponent {
   onFormSubmit() {
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
-        if (response.msgg === "มีคำภาษาอังกฤษอยู่แล้ว") {
+        if (response.msg === "มีคำภาษาอังกฤษอยู่แล้ว") {
           // แสดงข้อความข้อผิดพลาดที่ระบุว่ามีคำภาษาอังกฤษซ้ำ
           Swal.fire({
             icon: 'error',
@@ -33,7 +33,7 @@ export class AddWordComponent {
           // แสดงข้อความสำเร็จและนำผู้ใช้ไปยังหน้ารายการคำศัพท์
           Swal.fire({
             icon: 'success',
-            title: 'สำเร็จ',
+            title: 'success',
             text: response.msg,
           }).then((result) => {
             if (result.isConfirmed) {
@@ -54,6 +54,7 @@ export class AddWordComponent {
       },
     });
   }
+  
   
   
   goBack(): void {

@@ -57,6 +57,7 @@ export class VocabularyService {
   }
 
   addData(data: Vocabulary): Observable<{msg:string,msgg:string}> {
+    console.log(data)
     return this.http.post<{msg:string,msgg:string}>(this.baseUrl + `add_word.php`, data); 
   }
 
