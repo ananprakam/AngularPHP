@@ -31,7 +31,6 @@ $thai_word    = $data->thai_word;
 $check_query = "SELECT * FROM vocabularydata WHERE english_word = '$english_word'";
 $result = $conn->query($check_query);
 
-// Check if the english_word already exists in the database
 if ($result->num_rows > 0) {
     $response["msg"] = "มีคำภาษาอังกฤษอยู่แล้ว";
     // Send JSON response
@@ -53,4 +52,4 @@ if ($result->num_rows > 0) {
 
 
 // Send JSON response
-echo json_encode($response);
+// echo json_encode($response);
