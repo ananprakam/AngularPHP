@@ -23,11 +23,11 @@ export class AddWordComponent {
   onFormSubmit() {
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
-        if (response.msg === "มีคำภาษาอังกฤษอยู่แล้ว") {
+        if (response.msg === "There is already an English word") {
           // แสดงข้อความข้อผิดพลาดที่ระบุว่ามีคำภาษาอังกฤษซ้ำ
           Swal.fire({
             icon: 'error',
-            text: 'มีคำภาษาอังกฤษอยู่แล้ว',
+            text: 'There is already an English word',
           });
         } else {
           // แสดงข้อความสำเร็จและนำผู้ใช้ไปยังหน้ารายการคำศัพท์

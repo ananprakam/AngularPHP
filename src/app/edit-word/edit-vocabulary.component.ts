@@ -54,8 +54,8 @@ export class EditVocabularyComponent implements OnInit {
         next: (response) => {
           Swal.fire({
             icon: 'success',
-            title: 'เรียบร้อย',
-            text: 'แก้ไขข้อมูลเรียบร้อยแล้ว',
+            title: 'success',
+            text: 'The information has been edited.',
           }).then((result) => {
             if (result.isConfirmed) {
               this.router.navigate(['/vocabulary-list']);

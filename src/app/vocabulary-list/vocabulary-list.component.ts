@@ -36,20 +36,35 @@ export class VocabularyListComponent implements OnInit {
   }
 
   loadElements() {
-    this.spinerService.show(); // แสดง Spinner
-    const apiUrl = 'http://localhost/api/api.php';
-    this.http.get<Vocabulary[]>(apiUrl).subscribe(
-      (data) => {
+    this.spinerService.show();
+    this.vocabularyService.getAllVocabularies().subscribe({
+      next: (data) => {
         this.dataSource.data = data;
         this.dataSource.paginator = this.paginator;
-        this.spinerService.hide(); // ซ่อน Spinner เมื่อโหลดข้อมูลเสร็จสิ้น
+        this.spinerService.hide();
       },
-      (error) => {
+      error: (error) => {
         console.log('Error fetching data:', error);
-        this.spinerService.hide(); // ซ่อน Spinner เมื่อเกิดข้อผิดพลาด
+        this.spinerService.hide();
       }
-    );
+  });
   }
+
+  // loadElements() {
+  //   this.spinerService.show(); // แสดง Spinner
+  //   const apiUrl = 'http://localhost/api/api.php';
+  //   this.http.get<Vocabulary[]>(apiUrl).subscribe(
+  //     (data) => {
+  //       this.dataSource.data = data;
+  //       this.dataSource.paginator = this.paginator;
+  //       this.spinerService.hide(); // ซ่อน Spinner เมื่อโหลดข้อมูลเสร็จสิ้น
+  //     },
+  //     (error) => {
+  //       console.log('Error fetching data:', error);
+  //       this.spinerService.hide(); // ซ่อน Spinner เมื่อเกิดข้อผิดพลาด
+  //     }
+  //   );
+  // }
   
 
   applyFilter() {
