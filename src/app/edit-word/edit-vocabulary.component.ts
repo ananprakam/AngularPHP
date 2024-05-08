@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VocabularyService } from '../vocabulary.service';
 import { Vocabulary } from '../vocabulary.model';
 import { Subscription } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,12 +19,12 @@ export class EditVocabularyComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private vocabularyService: VocabularyService,
-    private toster: ToastrService
-  ) { }
+    private vocabularyService: VocabularyService  ) { }
 
   ngOnInit(): void {
+    debugger
     this.paramsSubscription = this.route.paramMap.subscribe({
+      
       next: (params) => {
         const idString = params.get('id');
         if (idString) {
@@ -63,11 +62,11 @@ export class EditVocabularyComponent implements OnInit {
           });
         },
         error: (error: any) => {
-          console.error('เกิดข้อผิดพลาดในการบันทึกคำศัพท์:', error);
+          console.error('An error occurred while saving the word.:', error);
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'เกิดข้อผิดพลาดขณะบันทึกข้อมูล',
+            text: 'An error occurred while saving data.',
           });
         }
       });

@@ -49,7 +49,7 @@ export class AddWordComponent {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'เกิดข้อผิดพลาดขณะประมวลผลคำขอของคุณ',
+          text: 'An error occurred while processing your request.',
         });
       },
     });

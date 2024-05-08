@@ -7,3 +7,10 @@ a:hover {
 li:hover{
   color:red
 }
+
+.navbar hr {
+  margin-top: 0; /* เพื่อลบระยะว่างด้านบนของเส้น */
+  margin-bottom: 0; /* เพื่อลบระยะว่างด้านล่างของเส้น */
+  border: 0; /* เพื่อลบเส้นขอบ */
+  border-top: 1px solid #ccc; /* กำหนดสีและความหนาของเส้นแนวนอน */
+}
