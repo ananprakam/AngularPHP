@@ -23,7 +23,7 @@ export class VocabularyListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'english_word', 'thai_word', 'actions1', 'actions2'];
   dataSource = new MatTableDataSource<Vocabulary>();
   searchTerm: string = '';
-
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private http: HttpClient,
@@ -49,23 +49,6 @@ export class VocabularyListComponent implements OnInit {
       }
   });
   }
-
-  // loadElements() {
-  //   this.spinerService.show(); // แสดง Spinner
-  //   const apiUrl = 'http://localhost/api/api.php';
-  //   this.http.get<Vocabulary[]>(apiUrl).subscribe(
-  //     (data) => {
-  //       this.dataSource.data = data;
-  //       this.dataSource.paginator = this.paginator;
-  //       this.spinerService.hide(); // ซ่อน Spinner เมื่อโหลดข้อมูลเสร็จสิ้น
-  //     },
-  //     (error) => {
-  //       console.log('Error fetching data:', error);
-  //       this.spinerService.hide(); // ซ่อน Spinner เมื่อเกิดข้อผิดพลาด
-  //     }
-  //   );
-  // }
-  
 
   applyFilter() {
     this.dataSource.filter = this.searchTerm.trim().toLowerCase();
