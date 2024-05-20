@@ -22,7 +22,6 @@ export class EditVocabularyComponent implements OnInit {
     private vocabularyService: VocabularyService  ) { }
 
   ngOnInit(): void {
-    debugger
     this.paramsSubscription = this.route.paramMap.subscribe({
       
       next: (params) => {

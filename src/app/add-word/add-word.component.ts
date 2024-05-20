@@ -12,45 +12,34 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-word.component.scss']
 })
 export class AddWordComponent {
-  vocabulary: Vocabulary = { english_word: '', thai_word: '' };
+  vocabulary: any = {}; // ตัวอย่างข้อมูลเริ่มต้น
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
 
-  constructor(
-    private vocabularyService: VocabularyService,
-    private router: Router,
-    private toster: ToastrService
-  ) {}
+  constructor(private vocabularyService: VocabularyService, private router: Router) {}
 
   onFormSubmit() {
     this.vocabularyService.addData(this.vocabulary).subscribe({
       next: (response) => {
         if (response.msg === "There is already an English word") {
           // แสดงข้อความข้อผิดพลาดที่ระบุว่ามีคำภาษาอังกฤษซ้ำ
-          Swal.fire({
-            icon: 'error',
-            text: 'There is already an English word',
-          });
+          this.errorMessage = 'There is already an English word';
+          this.successMessage = null;
         } else {
           // แสดงข้อความสำเร็จและนำผู้ใช้ไปยังหน้ารายการคำศัพท์
-          Swal.fire({
-            icon: 'success',
-            title: 'success',
-            text: response.msg,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.router.navigate(['/vocabulary-list']);
-            }
-          });
+          this.successMessage = response.msg;
+          this.errorMessage = null;
+          setTimeout(() => {
+            this.router.navigate(['/vocabulary-list']);
+          }, 2000); // รอ 2 วินาทีก่อนนำทาง
         }
       },
       error: (error) => {
         // จัดการข้อผิดพลาดอื่นๆ
         console.error('Error:', error);
-        // ตัวเลือกที่จะแสดงข้อความข้อผิดพลาดทั่วไปแก่ผู้ใช้
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'An error occurred while processing your request.',
-        });
+        // แสดงข้อความข้อผิดพลาดทั่วไปแก่ผู้ใช้
+        this.errorMessage = 'An error occurred while processing your request.';
+        this.successMessage = null;
       },
     });
   }
