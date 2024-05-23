@@ -36,7 +36,7 @@ export class VocabularyListComponent implements OnInit {
   }
 
   loadElements() {
-    this.spinerService.show();
+    // this.spinerService.show();
     this.vocabularyService.getAllVocabularies().subscribe({
       next: (data) => {
         this.dataSource.data = data;
